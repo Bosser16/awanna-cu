@@ -149,6 +149,39 @@ bool isVisible(
 }
 
 
+bool isValidPoint(
+	uint16_t x,
+    uint16_t y,
+	int width,
+	int height
+)
+{
+	
+}
+
+
+int getVisibilityCount(
+	uint16_t x,
+    uint16_t y,
+	uint8_t radius,
+	int16_t* data,
+	int width,
+	int height,
+) {
+	int visible = 0;
+	for (int x_offset = 0 - radius; x_offset <= radius; x_offset++)
+	{
+		for (int y_offset = 0 - (abs(x_offset) - radius); y_offset <= abs(x_offset) - radius; y_offset++)
+		{
+			if (isVisible(x, y, x + x_offset, y + y_offset, data, width, height))
+			{
+				visible++;
+			}
+		}
+	}
+}
+
+
 int main() {
     
 }
