@@ -3,10 +3,12 @@
 #include <vector>
 #include <utility>
 
+#include "readfile.hpp"
+
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
 const int WIDTH = 6000;
 const int HEIGHT = 6000;
-const uint8_t RADIUS = 100;
+const uint8_t RADIUS = 10;
 
 
 // Based off of provided bresenham_serial.cpp, but returns vector of points instead of printing them
@@ -156,7 +158,7 @@ bool isValidPoint(
 	int height
 )
 {
-	
+	return (x >= 0 && x < width && y >= 0 && y < height);
 }
 
 
@@ -173,12 +175,16 @@ int getVisibilityCount(
 	{
 		for (int y_offset = 0 - (abs(x_offset) - radius); y_offset <= abs(x_offset) - radius; y_offset++)
 		{
-			if (isVisible(x, y, x + x_offset, y + y_offset, data, width, height))
+			if (isValidPoint(x + x_offset, y + y_offset, width, height))
 			{
-				visible++;
+				if (isVisible(x, y, x + x_offset, y + y_offset, data, width, height))
+				{
+					visible++;
+				}
 			}
 		}
 	}
+	return visible;
 }
 
 
