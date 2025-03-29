@@ -7,8 +7,8 @@ project(awannacu
 
 add_executable(awannacu-serial
     src/serial.cpp
-    src/common/readfile.cpp
-    src/common/readfile.hpp
+    src/common/file_io.cpp
+    src/common/file_io.hpp
     src/common/bresenham.cpp
     src/common/bresenham.hpp
     src/common/viewshed.cpp

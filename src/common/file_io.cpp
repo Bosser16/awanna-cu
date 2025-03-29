@@ -1,10 +1,9 @@
-#include "readfile.hpp"
+#include "file_io.hpp"
 
 #include <iostream>
 #include <fstream>
 
-int16_t* read_file_to_array (std::string filename, int width, int height) {
-    long size = width * height;
+int16_t* read_file_to_array (std::string filename, int size) {
     int16_t* data = new int16_t[size];
     std::ifstream file(filename, std::ios::binary);
     
