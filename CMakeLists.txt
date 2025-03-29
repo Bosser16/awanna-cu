@@ -8,7 +8,9 @@ project(awannacu
 add_executable(awannacu-serial
     src/serial.cpp
     src/readfile.cpp
-    src/readfile.hpp)
+    src/readfile.hpp
+    src/bresenham.cpp
+    src/bresenham.hpp)
 
 target_compile_features(awannacu-serial PRIVATE cxx_std_20)
 

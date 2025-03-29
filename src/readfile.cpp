@@ -9,7 +9,7 @@ int16_t* read_file_to_array (std::string filename, int width, int height) {
     std::ifstream file(filename, std::ios::binary);
     
     // Handle invalid or unopenable files
-    if (!file.is_open()) {
+    if (!file.good()) {
         std::cerr << "Error opening file '" << filename << "'!" << std::endl;
         return data;
     }
