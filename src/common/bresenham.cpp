@@ -1,5 +1,6 @@
+#include "bresenham.hpp"
+
 #include <cmath>
-#include <tuple>
 
 // Bresenham's Line Algorithm: https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 // Based on implementation given by Professor Petruzza

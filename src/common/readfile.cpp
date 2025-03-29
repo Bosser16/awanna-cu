@@ -1,7 +1,7 @@
+#include "readfile.hpp"
+
 #include <iostream>
 #include <fstream>
-
-#include "readfile.hpp"
 
 int16_t* read_file_to_array (std::string filename, int width, int height) {
     long size = width * height;

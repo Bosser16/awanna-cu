@@ -3,7 +3,8 @@
 
 #include <string>
 
-// Function reads an SRTM file and returns an array of short
+// Takes the name of an SRTM file and the data dimensions
+// Returns an elevation data array of int16_t (short)
 int16_t* read_file_to_array (std::string filename, int width, int height);
 
 #endif

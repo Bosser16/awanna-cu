@@ -7,12 +7,16 @@ project(awannacu
 
 add_executable(awannacu-serial
     src/serial.cpp
-    src/readfile.cpp
-    src/readfile.hpp
-    src/bresenham.cpp
-    src/bresenham.hpp)
+    src/common/readfile.cpp
+    src/common/readfile.hpp
+    src/common/bresenham.cpp
+    src/common/bresenham.hpp
+    src/common/viewshed.cpp
+    src/common/viewshed.hpp)
 
 target_compile_features(awannacu-serial PRIVATE cxx_std_20)
+
+include_directories(src/common)
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_compile_options(awannacu-serial PRIVATE /W4)
