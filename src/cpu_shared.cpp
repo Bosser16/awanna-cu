@@ -1,6 +1,8 @@
 #include "file_io.hpp"
 #include "viewshed.hpp"
 
+#include <omp.h>
+
 #include <iostream>
 #include <string>
 #include <chrono>
@@ -8,14 +10,17 @@
 // File path is relative from .cpp file location?
 const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
-const std::string OUTPUT = "awannacu_serial.raw";
+const std::string OUTPUT = "awannacu_cpu_serial.raw";
 const int WIDTH = 6000;
 const int HEIGHT = 6000;
 const int RADIUS = 100;
 const int SIZE = WIDTH * HEIGHT;
 
+// Number of threads to use
+const int THREAD_COUNT = 8;
+
 // temp for testing
-const int PORTION = 2000;
+const int PORTION = 2000 * THREAD_COUNT;
 
 
 int main() {
@@ -28,14 +33,19 @@ int main() {
     // Get start time
     const std::chrono::time_point start = std::chrono::high_resolution_clock::now();
 
-    // Iterate through each pixel and find the number of visible pixels in its viewshed
-    for (int i = 0; i < PORTION; i++) {
-        visible_counts[i] = VIEWSHED_H::get_visible_count(data, WIDTH, HEIGHT, RADIUS, i);
+    // Declare iterator before use
+    int i;
 
-        if (i % 100 == 0) {
-            std::cout << i << std::endl;
+    // Use parallel for loop to divide the work among the threads.
+#   pragma omp parallel for num_threads(THREAD_COUNT) default(none) shared(visible_counts, data, WIDTH, HEIGHT, RADIUS, PORTION) private(i)
+        // Iterate through each pixel and find the number of visible pixels in its viewshed
+        for (i = 0; i < PORTION; i++) {
+            visible_counts[i] = VIEWSHED_H::get_visible_count(data, WIDTH, HEIGHT, RADIUS, i);
+
+            if (i % 100 == 0) {
+                std::cout << i << std::endl;
+            }
         }
-    }
 
     // Get end time and calculate duration
     const std::chrono::time_point stop = std::chrono::high_resolution_clock::now();
@@ -44,9 +54,6 @@ int main() {
     std::cout << "Finished " << PORTION << " pixels in " << duration.count() << " ms" << std::endl;
 
     FILEIO_H::write_array_to_file(FILEPATH + OUTPUT, visible_counts, PORTION);
-
-    delete(data);
-    delete(visible_counts);
 
     return 0;
 }

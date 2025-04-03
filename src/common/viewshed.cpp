@@ -5,13 +5,6 @@
 #include <iostream>
 
 
-// Takes data, width, and a set of coordinates
-// Returns elevation at the coordinates
-int16_t get_elevation(int16_t* data, int width, int x, int y) {
-    return data[width * y + x];
-}
-
-
 // Takes test coordinates, data dimensions, radius, and main coordinates
 // Returns if given pixel is a valid coordinate and within a radius of the main pixel
 bool is_valid_point(int x2, int y2, int width, int height, int radius, int x, int y) {
@@ -33,6 +26,14 @@ bool is_valid_point(int x2, int y2, int width, int height, int radius, int x, in
     // Otherwise, pixel is valid
     return true;
 };
+
+
+// POSSIBLE OPTIMIZATION!
+// Calculate Bresenham Line directly within is_visible function
+// i.e. replace creation of tuple array and for loop after with plot_line function
+// add check for elevation where data would normally be added to the array
+// there may be a memory leak with the tuples - it is unclear if they need to be deleted
+// however, the above optimization would fix this
 
 
 // Takes data, width, and the coordinates of two points
@@ -78,9 +79,15 @@ bool is_visible(int16_t* data, int width, int x1, int y1, int x2, int y2) {
             limit = slope * distance + elevation;
 
             // Return false if current elevation is higher than limit
-            if (data[width * y + x] > limit) return false;
+            if (data[width * y + x] > limit) {
+                delete(coordinates);
+                return false;
+            }
         }
     }
+
+    // Delete line
+    delete(coordinates);
 
     return true;
 }
