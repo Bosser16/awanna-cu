@@ -12,10 +12,9 @@ include_directories(src/common)
 
 add_executable(awannacu-serial
     src/serial.cpp
+    src/common/constants.hpp
     src/common/file_io.cpp
     src/common/file_io.hpp
-    src/common/bresenham.cpp
-    src/common/bresenham.hpp
     src/common/viewshed.cpp
     src/common/viewshed.hpp)
 
@@ -32,10 +31,9 @@ endif()
 
 add_executable(awannacu-cpu-shared
     src/cpu_shared.cpp
+    src/common/constants.hpp
     src/common/file_io.cpp
     src/common/file_io.hpp
-    src/common/bresenham.cpp
-    src/common/bresenham.hpp
     src/common/viewshed.cpp
     src/common/viewshed.hpp)
 

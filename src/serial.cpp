@@ -1,3 +1,4 @@
+#include "constants.hpp"
 #include "file_io.hpp"
 #include "viewshed.hpp"
 
@@ -9,10 +10,6 @@
 const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
 const std::string OUTPUT = "awannacu_serial.raw";
-const int WIDTH = 6000;
-const int HEIGHT = 6000;
-const int RADIUS = 100;
-const int SIZE = WIDTH * HEIGHT;
 
 // temp for testing
 const int PORTION = 2000;
@@ -30,11 +27,14 @@ int main() {
 
     // Iterate through each pixel and find the number of visible pixels in its viewshed
     for (int i = 0; i < PORTION; i++) {
-        visible_counts[i] = VIEWSHED_H::get_visible_count(data, WIDTH, HEIGHT, RADIUS, i);
+        visible_counts[i] = VIEWSHED_H::get_visible_count(data, i);
 
+        /*
+        // For testing
         if (i % 100 == 0) {
             std::cout << i << std::endl;
         }
+        */
     }
 
     // Get end time and calculate duration

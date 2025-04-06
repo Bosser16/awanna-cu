@@ -1,3 +1,4 @@
+#include "constants.hpp"
 #include "file_io.hpp"
 #include "viewshed.hpp"
 
@@ -10,14 +11,10 @@
 // File path is relative from .cpp file location?
 const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
-const std::string OUTPUT = "awannacu_cpu_serial.raw";
-const int WIDTH = 6000;
-const int HEIGHT = 6000;
-const int RADIUS = 100;
-const int SIZE = WIDTH * HEIGHT;
+const std::string OUTPUT = "awannacu_cpu_shared.raw";
 
 // Number of threads to use
-const int THREAD_COUNT = 8;
+const int THREAD_COUNT = 4;
 
 // temp for testing
 const int PORTION = 2000 * THREAD_COUNT;
@@ -37,14 +34,17 @@ int main() {
     int i;
 
     // Use parallel for loop to divide the work among the threads.
-#   pragma omp parallel for num_threads(THREAD_COUNT) default(none) shared(visible_counts, data, WIDTH, HEIGHT, RADIUS, PORTION) private(i)
+#   pragma omp parallel for num_threads(THREAD_COUNT) default(none) shared(visible_counts, data, PORTION) private(i)
         // Iterate through each pixel and find the number of visible pixels in its viewshed
         for (i = 0; i < PORTION; i++) {
-            visible_counts[i] = VIEWSHED_H::get_visible_count(data, WIDTH, HEIGHT, RADIUS, i);
+            visible_counts[i] = VIEWSHED_H::get_visible_count(data, i);
 
+            /*
+            // For testing
             if (i % 100 == 0) {
                 std::cout << i << std::endl;
             }
+            */
         }
 
     // Get end time and calculate duration
