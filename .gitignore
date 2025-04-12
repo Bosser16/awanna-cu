@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# vscode
+*.vscode
+
 # Compiled Object files
 *.slo
 *.lo
@@ -29,4 +32,4 @@
 # Executables
 *.exe
 *.out
-*.app
+*.app 
