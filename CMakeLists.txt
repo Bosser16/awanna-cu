@@ -26,6 +26,24 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_compile_options(awannacu-serial PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+# SERIAL VISUAL IMPLEMENTATION
+
+add_executable(awannacu-serial-visual
+    src/serial_visual.cpp
+    src/common/constants.hpp
+    src/common/file_io.cpp
+    src/common/file_io.hpp
+    src/common/viewshed.cpp
+    src/common/viewshed.hpp)
+
+target_compile_features(awannacu-serial-visual PRIVATE cxx_std_20)
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_options(awannacu-serial-visual PRIVATE /W4)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_options(awannacu-serial-visual PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 
 # CPU - SHARED MEMORY IMPLEMENTATION - OpenMP
 

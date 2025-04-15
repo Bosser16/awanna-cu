@@ -9,7 +9,7 @@
 // Returns if given pixel is a valid coordinate and within a radius of the main pixel
 bool is_valid_point(int x2, int y2, int x, int y) {
     // Test pixel and main pixel must be different
-    if (x2 == x && y2 == x) return false;
+    if (x2 == x && y2 == y) return false;
 
     // Pixel must be within the width of the data
     if (x2 < 0 || x2 >= WIDTH) return false;
