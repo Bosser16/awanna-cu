@@ -1,6 +1,6 @@
 #include "constants.hpp"
 #include "file_io.hpp"
-#include "viewshed.hpp"
+#include "viewshed.cuh"
 
 #include <iostream>
 #include <string>
@@ -38,7 +38,7 @@ int main() {
             int pixel_index = global_y * WIDTH + global_x;
 
             int flat_index = y * square_size + x;
-            visible_counts[flat_index] = VIEWSHED_H::get_visible_count(data, pixel_index);
+            visible_counts[flat_index] = VIEWSHED_CUH::get_visible_count(data, pixel_index);
     
             // Log progress
             if (flat_index % 100 == 0) {

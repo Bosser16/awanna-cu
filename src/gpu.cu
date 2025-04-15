@@ -21,7 +21,7 @@ __global__ void kernel(int16_t* data, int32_t* visible_counts, int portion) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < portion) {
         // Example processing: just set visible_counts to the index for testing
-        visible_counts[idx] = VIEWSHED_H::get_visible_count(data, idx);
+        visible_counts[idx] = VIEWSHED_CUH::get_visible_count(data, idx);
     }
 }
 

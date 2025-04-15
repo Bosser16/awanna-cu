@@ -1,6 +1,6 @@
 #include "constants.hpp"
 #include "file_io.hpp"
-#include "viewshed.hpp"
+#include "viewshed.cuh"
 
 #include <omp.h>
 
@@ -34,10 +34,10 @@ int main() {
     int i;
 
     // Use parallel for loop to divide the work among the threads.
-#   pragma omp parallel for num_threads(THREAD_COUNT) default(none) shared(visible_counts, data, PORTION) private(i)
+#   pragma omp parallel for num_threads(THREAD_COUNT) default(none) shared(visible_counts, data) private(i)
         // Iterate through each pixel and find the number of visible pixels in its viewshed
         for (i = 0; i < PORTION; i++) {
-            visible_counts[i] = VIEWSHED_H::get_visible_count(data, i);
+            visible_counts[i] = VIEWSHED_CUH::get_visible_count(data, i);
 
             /*
             // For testing

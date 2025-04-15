@@ -2,13 +2,12 @@
 #define VIEWSHED_CUH
 
 #ifdef __CUDACC__
-#define HOST_DEVICE __host__ __device__
+#define HOST_DEVICE __host__ __device__ inline
 #else
-#define HOST_DEVICE
+#define HOST_DEVICE inline
 #endif
 
 #include "constants.hpp"
-#include "viewshed.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -35,7 +34,7 @@ bool is_valid_point(int x2, int y2, int x, int y) {
 
     // Otherwise, pixel is valid
     return true;
-};
+}
 
 
 // Takes data, width, and the coordinates of two points
@@ -167,7 +166,7 @@ int32_t get_visible_count(int16_t* data, int pixel) {
 
     // Verify that the pixel is in bounds
     if (pixel >= SIZE) {
-        std::cerr << "Pixel " << pixel << " is out of bounds of the data!" << std::endl;
+    //    std::cerr << "Pixel " << pixel << " is out of bounds of the data!" << std::endl;
         return visible;
     }
 

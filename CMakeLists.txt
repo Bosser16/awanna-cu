@@ -15,8 +15,7 @@ add_executable(awannacu-serial
     src/common/constants.hpp
     src/common/file_io.cpp
     src/common/file_io.hpp
-    src/common/viewshed.cpp
-    src/common/viewshed.hpp)
+    src/common/viewshed.cuh)
 
 target_compile_features(awannacu-serial PRIVATE cxx_std_20)
 
@@ -33,8 +32,7 @@ add_executable(awannacu-serial-visual
     src/common/constants.hpp
     src/common/file_io.cpp
     src/common/file_io.hpp
-    src/common/viewshed.cpp
-    src/common/viewshed.hpp)
+    src/common/viewshed.cuh)
 
 target_compile_features(awannacu-serial-visual PRIVATE cxx_std_20)
 
@@ -52,8 +50,7 @@ add_executable(awannacu-cpu-shared
     src/common/constants.hpp
     src/common/file_io.cpp
     src/common/file_io.hpp
-    src/common/viewshed.cpp
-    src/common/viewshed.hpp)
+    src/common/viewshed.cuh)
 
 find_package(OpenMP REQUIRED)
 
@@ -81,8 +78,7 @@ if (CUDA_FOUND)
         src/common/file_io.cpp
         src/common/file_io.hpp
         src/common/viewshed.cuh
-        src/common/viewshed.cpp
-        src/common/viewshed.hpp)
+        src/common/viewshed.cuh)
 
     target_compile_features(awannacu-gpu PRIVATE cxx_std_20)
 
