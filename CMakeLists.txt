@@ -65,9 +65,10 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 
 # GPU IMPLEMENTATION
-find_package(CUDA QUIET)
+include(CheckLanguage)
+check_language(CUDA)
 
-if (CUDA_FOUND)
+if (CMAKE_CUDA_COMPILER)
     enable_language(CUDA)
 
     message(STATUS "CUDA found. Building GPU implementation.")
@@ -81,7 +82,9 @@ if (CUDA_FOUND)
         src/common/viewshed.cuh)
 
     target_compile_options(awannacu-gpu PRIVATE
-        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr -Xcudafe "--diag_suppress=20014">
+        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe>
+        $<$<COMPILE_LANGUAGE:CUDA>:"--diag_suppress=20014">
     )
 
     if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
