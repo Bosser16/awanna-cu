@@ -80,7 +80,9 @@ if (CUDA_FOUND)
         src/common/viewshed.cuh
         src/common/viewshed.cuh)
 
-    target_compile_features(awannacu-gpu PRIVATE cxx_std_20)
+    target_compile_options(awannacu-gpu PRIVATE
+        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr -Xcudafe "--diag_suppress=20014">
+    )
 
     if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_compile_options(awannacu-gpu PRIVATE /W4)
