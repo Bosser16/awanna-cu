@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.26)
 
 project(awannacu
     VERSION 1.0
@@ -65,4 +65,32 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_compile_options(awannacu-cpu-shared PRIVATE /W4)
 elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_compile_options(awannacu-cpu-shared PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+# GPU IMPLEMENTATION
+find_package(CUDA QUIET)
+
+if (CUDA_FOUND)
+    message(STATUS "CUDA found. Building GPU implementation.")
+
+    add_executable(awannacu-gpu
+        src/gpu.cu
+        src/common/constants.hpp
+        src/common/file_io.cpp
+        src/common/file_io.hpp
+        src/common/viewshed.cuh
+        src/common/viewshed.cpp
+        src/common/viewshed.hpp)
+
+    target_compile_features(awannacu-gpu PRIVATE cxx_std_20)
+    target_link_libraries(awannacu-gpu PRIVATE CUDA::CUDA)
+
+    if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+        target_compile_options(awannacu-gpu PRIVATE /W4)
+    elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+        target_compile_options(awannacu-gpu PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+
+else()
+    message(WARNING "CUDA not found. Skipping GPU build.")
 endif()
