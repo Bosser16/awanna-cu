@@ -11,10 +11,7 @@ const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
 const std::string OUTPUT = "awannacu_serial.raw";
 
-// temp for testing
-const int PORTION = 2000;
-
-__global__ void kernel(int16_t* data, int32_t* visible_counts, int portion) {
+__global__ void kernel_viewshed(int16_t* data, int32_t* visible_counts, int portion) {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx < portion) {
         visible_counts[idx] = VIEWSHED_CUH::get_visible_count(data, idx);
@@ -23,7 +20,6 @@ __global__ void kernel(int16_t* data, int32_t* visible_counts, int portion) {
 
 __global__ void hello_kernel(){
     int idx = threadIdx.x;
-    //std::cout << "Hello World from : " << idx << std::endl;
     printf("Hello World from : %d",idx);
 }
 

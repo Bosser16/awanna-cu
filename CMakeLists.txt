@@ -81,10 +81,10 @@ if (CMAKE_CUDA_COMPILER)
         src/common/viewshed.cuh
         src/common/viewshed.cuh)
 
+# Suppresses warnings because there are a lot, could fix warnings if needed tho
     target_compile_options(awannacu-gpu PRIVATE
-        $<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
-        $<$<COMPILE_LANGUAGE:CUDA>:-Xcudafe>
-        $<$<COMPILE_LANGUAGE:CUDA>:"--diag_suppress=20014">
+	$<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-w>
     )
 
     if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
