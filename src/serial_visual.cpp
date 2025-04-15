@@ -30,8 +30,11 @@ int main() {
     // Iterate through each pixel in a square to find the number of visible pixels in its viewshed
     for(int y = 0; y < square_size; y++){
         for (int x = 0; x < square_size; x++) {
+            // Calculate the global pixel index
             int global_x = start_x + x;
             int global_y = start_y + y;
+
+            // Calculate the pixel index in the data array
             int pixel_index = global_y * WIDTH + global_x;
 
             int flat_index = y * square_size + x;
