@@ -11,10 +11,10 @@ const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
 const std::string OUTPUT = "awannacu_serial.raw";
 
-// temp for testing
-//const int PORTION = 2000;
+// Starting pixel
 const int start_x = 0;
 const int start_y = 0;
+// Visualization size
 const int square_size = 200;
 
 int main() {
@@ -27,16 +27,17 @@ int main() {
     // Get start time
     const std::chrono::time_point start = std::chrono::high_resolution_clock::now();
 
-    // Iterate through each pixel and find the number of visible pixels in its viewshed
+    // Iterate through each pixel in a square to find the number of visible pixels in its viewshed
     for(int y = 0; y < square_size; y++){
         for (int x = 0; x < square_size; x++) {
             int global_x = start_x + x;
             int global_y = start_y + y;
             int pixel_index = global_y * WIDTH + global_x;
 
-            int flat_index = y * square_size + x; // Index for writing into visible_counts[]
+            int flat_index = y * square_size + x;
             visible_counts[flat_index] = VIEWSHED_H::get_visible_count(data, pixel_index);
     
+            // Log progress
             if (flat_index % 100 == 0) {
                 std::cout << flat_index << std::endl;
             }
