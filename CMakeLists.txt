@@ -5,6 +5,8 @@ project(awannacu
     DESCRIPTION "Viewshed computation using Bresenham's Line Algorithm. Includes serial implementation and shared/distributed memory CPU/GPU implementations."
     LANGUAGES CXX)
 
+enable_language(CUDA)
+
 include_directories(src/common)
 
 
@@ -68,9 +70,7 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
 endif()
 
 # GPU IMPLEMENTATION
-find_package(CUDA QUIET)
-
-if (CUDA_FOUND)
+if (CMAKE_CUDA_COMPILER)
     message(STATUS "CUDA found. Building GPU implementation.")
 
     add_executable(awannacu-gpu
@@ -83,7 +83,6 @@ if (CUDA_FOUND)
         src/common/viewshed.hpp)
 
     target_compile_features(awannacu-gpu PRIVATE cxx_std_20)
-    target_link_libraries(awannacu-gpu PRIVATE CUDA::CUDA)
 
     if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
         target_compile_options(awannacu-gpu PRIVATE /W4)
