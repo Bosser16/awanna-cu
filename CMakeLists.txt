@@ -42,6 +42,21 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_compile_options(awannacu-serial-visual PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+# VALIDATOR
+
+add_executable(awannacu-validate
+    src/validator.cpp
+    src/common/constants.hpp
+    src/common/file_io.cpp
+    src/common/file_io.hpp)
+
+target_compile_features(awannacu-validate PRIVATE cxx_std_20)
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_options(awannacu-validate PRIVATE /W4)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_options(awannacu-validate PRIVATE -Wall -Wextra -Wpedantic)
+endif()
 
 # CPU - SHARED MEMORY IMPLEMENTATION - OpenMP
 
@@ -78,7 +93,6 @@ if (CMAKE_CUDA_COMPILER)
         src/common/constants.hpp
         src/common/file_io.cpp
         src/common/file_io.hpp
-        src/common/viewshed.cuh
         src/common/viewshed.cuh)
 
 # Suppresses warnings because there are a lot, could fix warnings if needed tho
