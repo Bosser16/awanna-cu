@@ -79,6 +79,27 @@ elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_compile_options(awannacu-cpu-shared PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+# CPU - DISTRIBUTED MEMORY IMPLEMENTATION - MPI
+
+add_executable(awannacu-cpu-distributed
+    src/cpu_distributed.cpp
+    src/common/constants.hpp
+    src/common/file_io.cpp
+    src/common/file_io.hpp
+    src/common/viewshed.cuh)
+
+find_package(MPI REQUIRED)
+
+target_link_libraries(awannacu-cpu-distributed PRIVATE MPI::MPI_CXX)
+
+target_compile_features(awannacu-cpu-distributed PRIVATE cxx_std_20)
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    target_compile_options(awannacu-cpu-distributed PRIVATE /W4)
+elseif (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    target_compile_options(awannacu-cpu-distributed PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 # GPU IMPLEMENTATION
 include(CheckLanguage)
 check_language(CUDA)

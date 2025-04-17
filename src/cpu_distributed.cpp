@@ -1,6 +1,6 @@
 #include "constants.hpp"
 #include "file_io.hpp"
-#include "viewshed.hpp"
+#include "viewshed.cuh"
 
 #include <mpi.h>
 
@@ -52,7 +52,7 @@ int main() {
     }
 
     for (int i = 0; i < local_size; i++) {
-        local_counts[i] = VIEWSHED_H::get_visible_count(data, start_idx + i);
+        local_counts[i] = VIEWSHED_CUH::get_visible_count(data, start_idx + i);
 
             /*
             // For testing
