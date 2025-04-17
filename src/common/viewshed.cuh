@@ -1,5 +1,13 @@
+#ifndef VIEWSHED_CUH
+#define VIEWSHED_CUH
+
+#ifdef __CUDACC__
+#define HOST_DEVICE __host__ __device__ inline
+#else
+#define HOST_DEVICE inline
+#endif
+
 #include "constants.hpp"
-#include "viewshed.hpp"
 
 #include <cmath>
 #include <iostream>
@@ -7,9 +15,10 @@
 
 // Takes test coordinates, data dimensions, radius, and main coordinates
 // Returns if given pixel is a valid coordinate and within a radius of the main pixel
+HOST_DEVICE
 bool is_valid_point(int x2, int y2, int x, int y) {
     // Test pixel and main pixel must be different
-    if (x2 == x && y2 == x) return false;
+    if (x2 == x && y2 == y) return false;
 
     // Pixel must be within the width of the data
     if (x2 < 0 || x2 >= WIDTH) return false;
@@ -25,13 +34,14 @@ bool is_valid_point(int x2, int y2, int x, int y) {
 
     // Otherwise, pixel is valid
     return true;
-};
+}
 
 
 // Takes data, width, and the coordinates of two points
 // Uses Bresenham's Line Algorithm: https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 // Based on implementation given by Professor Petruzza
 // Returns if an uninterrupted line can be drawn between the points
+HOST_DEVICE
 bool is_visible(int16_t* data, int x1, int y1, int x2, int y2) {
     double limit;
 
@@ -150,13 +160,13 @@ bool is_visible(int16_t* data, int x1, int y1, int x2, int y2) {
     return true;
 }
 
-
+HOST_DEVICE
 int32_t get_visible_count(int16_t* data, int pixel) {
     int32_t visible = 0;
 
     // Verify that the pixel is in bounds
     if (pixel >= SIZE) {
-        std::cerr << "Pixel " << pixel << " is out of bounds of the data!" << std::endl;
+    //    std::cerr << "Pixel " << pixel << " is out of bounds of the data!" << std::endl;
         return visible;
     }
 
@@ -175,3 +185,5 @@ int32_t get_visible_count(int16_t* data, int pixel) {
 
     return visible;
 }
+
+#endif
