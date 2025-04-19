@@ -32,7 +32,7 @@ int main() {
         data = FILEIO_H::read_file_to_array(FILEPATH + FILENAME, SIZE);
     }
 
-    // Broadcast DEM data to all ranks (I don't actually think I want to do this lol)
+    // Broadcast DEM data to all ranks
     if (rank != 0) {
         data = new int16_t[SIZE];
     }
@@ -53,13 +53,6 @@ int main() {
 
     for (int i = 0; i < local_size; i++) {
         local_counts[i] = VIEWSHED_CUH::get_visible_count(data, start_idx + i);
-
-            /*
-            // For testing
-            if (i % 100 == 0) {
-                std::cout << i << std::endl;
-            }
-            */
     }
 
 
