@@ -45,8 +45,8 @@ int main() {
 	cudaEventCreate(&stop_g);
 	float global_time;
 
-    dim3 DimGrid(WIDTH, HEIGHT);
-    dim3 DimBlock(8,8);
+    dim3 DimBlock(32,4);
+    dim3 DimGrid((WIDTH+ DimBlock.x-1)/DimBlock.x, (HEIGHT+DimBlock.y-1)/DimBlock.y);
 
     cudaEventRecord(start_g, 0);
     
