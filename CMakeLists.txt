@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.26)
 project(awannacu
     VERSION 1.0
     DESCRIPTION "Viewshed computation using Bresenham's Line Algorithm. Includes serial implementation and shared/distributed memory CPU/GPU implementations."
-    LANGUAGES CXX)
+    LANGUAGES CXX CUDA)
 
 include_directories(src/common)
 

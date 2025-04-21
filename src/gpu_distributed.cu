@@ -9,9 +9,9 @@
 #include <string>
 
 // File path is relative from .cpp file location?
-const std::string FILEPATH = "../";
+const std::string FILEPATH = "";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
-const std::string OUTPUT = "awannacu_gpu.raw";
+const std::string OUTPUT = "awannacu_gpu_distributed.raw";
 
 __global__ void kernel_viewshed(int16_t* data, int32_t* visible_counts, int start_idx, int end_idx) {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
@@ -23,7 +23,7 @@ __global__ void kernel_viewshed(int16_t* data, int32_t* visible_counts, int star
 }
 
 // temp for testing
-const int PORTION = 8000;
+const int PORTION = SIZE;
 
 int main() {
 
@@ -122,7 +122,7 @@ int main() {
 
     // Process 0 prints out the maximum time spent then writes the visible counts to a file
     if (rank == 0) {
-        std::cout << "Finished " << PORTION << " pixels in " << global_time << " ms" << std::endl;
+        printf("GPU Distributed: Finished %d pixels with %d GPUs in %f ms\n", PORTION, size, global_time);
         FILEIO_H::write_array_to_file(FILEPATH + OUTPUT, visible_counts, PORTION);
     }
 
