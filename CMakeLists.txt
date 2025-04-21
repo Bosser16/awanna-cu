@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.26)
 project(awannacu
     VERSION 1.0
     DESCRIPTION "Viewshed computation using Bresenham's Line Algorithm. Includes serial implementation and shared/distributed memory CPU/GPU implementations."
-    LANGUAGES CXX)
+    LANGUAGES CXX CUDA)
 
 include_directories(src/common)
 
@@ -107,7 +107,7 @@ check_language(CUDA)
 if (CMAKE_CUDA_COMPILER)
     enable_language(CUDA)
 
-    message(STATUS "CUDA found. Building GPU implementation.")
+    message(STATUS "CUDA found. Building GPU implementations.")
 
     add_executable(awannacu-gpu
         src/gpu.cu
@@ -115,9 +115,23 @@ if (CMAKE_CUDA_COMPILER)
         src/common/file_io.cpp
         src/common/file_io.hpp
         src/common/viewshed.cuh)
+        
+        add_executable(awannacu-gpu-distributed
+        src/gpu_distributed.cu
+        src/common/constants.hpp
+        src/common/file_io.cpp
+        src/common/file_io.hpp
+        src/common/viewshed.cuh)
+
+        target_link_libraries(awannacu-gpu-distributed PRIVATE MPI::MPI_CXX)
 
 # Suppresses warnings because there are a lot, could fix warnings if needed tho
     target_compile_options(awannacu-gpu PRIVATE
+	$<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
+        $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-w>
+    )
+
+    target_compile_options(awannacu-gpu-distributed PRIVATE
 	$<$<COMPILE_LANGUAGE:CUDA>:--expt-relaxed-constexpr>
         $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-w>
     )
