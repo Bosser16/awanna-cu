@@ -45,4 +45,4 @@
 - viewshed functions
 - Shared CPU implementation
 - Distributed GPU implementation
-- Serial CPU/Parallel CPU/ Distributed GPU scaling study
+- Serial CPU/Parallel CPU/Distributed GPU scaling study
