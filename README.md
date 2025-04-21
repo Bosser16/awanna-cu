@@ -39,10 +39,10 @@
 - Serial implementation
 - viewshed functions
 - Distributed CPU implementaion
-- Distributed CPU/GPU scaling study
+- Distributed CPU scaling study
 ### Ryan Van Gieson
 - Serial implementation
 - viewshed functions
 - Shared CPU implementation
 - Distributed GPU implementation
-- Serial CPU/Parallel CPU scaling study
+- Serial CPU/Parallel CPU/ Distributed GPU scaling study
