@@ -9,7 +9,7 @@
 // File path is relative from .cpp file location?
 const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
-const std::string OUTPUT = "awannacu_serial.raw";
+const std::string OUTPUT = "awannacu_serial_visual.raw";
 
 // Starting pixel
 const int start_x = 0;
