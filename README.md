@@ -18,9 +18,11 @@
  - Shared Memory CPU using OpenMP - "awannacu-cpu-shared"
  - Distributed Memory CPU using MPI - "awannacu-cpu-distributed"
  - Shared Memory GPU using CUDA - "awannacu-gpu"
- - Distributed Memory GPU using CUDA and MPI - "awannacu-distributed-gpu"
- - Serial (For visualization) - "awannacu-serial-visual"
+ - Distributed Memory GPU using CUDA and MPI - "awannacu-gpu-distributed"
+ - Serial (For small scale visualization) - "awannacu-serial-visual"
     - src/awannacu_visual.ipynb contains python code to show visual in a jupyter notebook
+    - uses awannacu_serial_visual.raw for input
+    - can use any .raw output, must modify height/width of image in notebook
  - Validator - "awannacu-validate"
     - change variables in src/validator.cpp to match output file names
     - size (number of pixels computed) must match or will output INVALID
@@ -39,4 +41,5 @@
 ### Ryan Van Gieson
 - Serial implementation
 - Shared CPU implementation
+- Distributed GPU implementation
 - Serial CPU/Parallel CPU scaling study
