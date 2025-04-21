@@ -20,8 +20,8 @@ __global__ void kernel_viewshed(int16_t* data, int32_t* visible_counts, int port
     }
 }
 
-// temp for testing
-const int PORTION = 8000;
+// Adjust PORTION to test different image sizes
+const int PORTION = SIZE;
 
 int main() {
 
