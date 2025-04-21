@@ -16,8 +16,8 @@ const std::string OUTPUT = "awannacu_cpu_shared.raw";
 // Number of threads to use
 const int THREAD_COUNT = 4;
 
-// temp for testing
-const int PORTION = 2000 * THREAD_COUNT;
+// Adjust PORTION to test different image sizes
+const int PORTION = SIZE;
 
 
 int main() {

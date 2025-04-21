@@ -4,6 +4,7 @@
 ### Set Up on CHPC
  - module load cuda
  - module load cmake
+ - module load mpich
 
 ### Directions
  - Download SRTM file
@@ -36,10 +37,12 @@
  - CUDA GPU Scaling Study
 ### Calvin Clark
 - Serial implementation
+- viewshed functions
 - Distributed CPU implementaion
 - Distributed CPU/GPU scaling study
 ### Ryan Van Gieson
 - Serial implementation
+- viewshed functions
 - Shared CPU implementation
 - Distributed GPU implementation
 - Serial CPU/Parallel CPU scaling study
