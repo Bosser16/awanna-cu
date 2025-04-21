@@ -37,12 +37,12 @@
  - CUDA GPU Scaling Study
 ### Calvin Clark
 - Serial implementation
-- viewshed functions
+- Viewshed functions
 - Distributed CPU implementaion
 - Distributed CPU/GPU scaling study
 ### Ryan Van Gieson
 - Serial implementation
-- viewshed functions
+- Viewshed functions
 - Shared CPU implementation
 - Distributed GPU implementation
 - Serial CPU/Parallel CPU scaling study
