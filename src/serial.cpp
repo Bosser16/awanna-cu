@@ -11,8 +11,8 @@ const std::string FILEPATH = "../";
 const std::string FILENAME = "srtm_14_04_6000x6000_short16.raw";
 const std::string OUTPUT = "awannacu_serial.raw";
 
-// temp for testing
-const int PORTION = 8000;
+// Adjust PORTION to test different image sizes
+const int PORTION = SIZE;
 
 
 int main() {
